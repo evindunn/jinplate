@@ -13,9 +13,12 @@ from jinplate.plugins.loader import DataLoader
 @click.argument("datasource", type=str)
 def jinplate_cli(template_file, datasource):
     """
-    Main CLI script for jinplate
-    :param template_file: Path to a Jinja2 template file
-    :param datasource: URI of the data source to use as template parameters
+    A command line renderer for jinja templates
+
+    TEMPLATE_FILE is the path to a jinja template file to render
+
+    DATASOURCE is the URI of a datasource supported by jinplate that contains the
+    template variables
     """
     template_path = pathlib.Path(template_file)
     jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path.parent))
