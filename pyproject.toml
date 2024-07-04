@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jinplate"
+description = "CLI renderer for Jinja2"
+version = "0.0.1"
+authors = [{name = "Evin Dunn"}]
+requires-python = ">=3.10"
+dynamic = ["readme", "dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+readme = {file = "README.md"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.black]
+diff = true
+extend-exclude = '''
+(
+    ^/\.venv/.*
+    | ^/tests/.*
+)
+'''
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.FORMAT]
+max-line-length = 88
+
+[tool.pylint.MASTER]
+ignore-paths = [
+    '^\.venv/.*$',
+    '^tests/.*$'
+]
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [
+    'fixme',
+    'missing-module-docstring'
+]
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = """\
+    -s \
+    --cov=jinplate \
+    --cov-report term-missing\
+"""
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
+
+[tool.coverage.run]
+omit = [
+    "__init__.py",
+    "test_*.py",
+]
