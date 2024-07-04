@@ -37,7 +37,7 @@ Options:
 # Local Vars Example
 
 test.j2
-```
+```yaml
 ---
 
 key: {{ test1.key }}
@@ -45,7 +45,7 @@ arr: {{ test2.arr }}
 ```
 
 vars.json
-```
+```json
 {
   "test1": {
     "key": "val"
@@ -58,6 +58,7 @@ vars.json
 
 ```
 jinplate test.j2 "file:///$(pwd)/vars.json"
+
 ---
 
 key: val
@@ -72,6 +73,7 @@ python -m http.server
 
 ```
 jinplate test.j2 "http://127.0.0.1:8000/vars.json"
+
 ---
 
 key: val
