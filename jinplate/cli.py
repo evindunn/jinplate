@@ -21,9 +21,9 @@ def jinplate_cli(template_file, datasource, file_type):
     DATASOURCE is the URI of a datasource supported by jinplate that contains the
     template variables
     """
-    template_path = pathlib.Path(template_file)
+    template_path = pathlib.Path(template_file).resolve()
     jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path.parent))
-    template = jenv.get_template(template_file)
+    template = jenv.get_template(template_path.name)
 
     dataloader = DataLoader()
     data = dataloader.load(datasource, file_type=file_type)
