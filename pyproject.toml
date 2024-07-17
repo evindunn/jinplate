@@ -5,10 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "jinplate"
 description = "CLI renderer for Jinja2"
-version = "0.0.2"
 authors = [{name = "Evin Dunn"}]
 requires-python = ">=3.10"
-dynamic = ["readme", "dependencies"]
+dynamic = ["version", "readme", "dependencies"]
 
 [project.scripts]
 jinplate = "jinplate.cli:jinplate_cli"
@@ -16,6 +15,7 @@ jinplate = "jinplate.cli:jinplate_cli"
 [tool.setuptools.dynamic]
 dependencies = {file = "requirements.txt"}
 readme = {file = "README.md", content-type = "text/markdown; charset=UTF-8; variant=GFM"}
+version = {attr = "jinplate.__version__.__VERSION__"}
 
 [tool.setuptools.packages.find]
 where = ["."]
