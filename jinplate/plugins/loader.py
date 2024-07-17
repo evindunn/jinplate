@@ -27,12 +27,13 @@ class DataLoader:
         self.scheme_plugins = DataLoader.load_scheme_plugins()
         self.file_type_plugins = DataLoader.load_file_type_plugins()
 
-    def load(self, uri):
+    def load(self, uri, file_type=None):
         """
         Loads the file at the given URI using ENABLED_PLUGINS_SCHEME and
         ENABLED_PLUGINS_FILE_TYPE
 
         :param uri: URI to the values file to load
+        :param file_type: Override for file extension
         :return: The values as a dict
         """
 
@@ -51,9 +52,14 @@ class DataLoader:
 
         datasource_parsed = None
 
-        for plugin in self.file_type_plugins:
-            if plugin.extension_matches(ext):
-                datasource_parsed = plugin.parse(datasource_content)
+        if file_type is None:
+            for plugin in self.file_type_plugins:
+                if plugin.extension_matches(ext):
+                    datasource_parsed = plugin.parse(datasource_content)
+        else:
+            for plugin in self.file_type_plugins:
+                if plugin.extension_matches(file_type):
+                    datasource_parsed = plugin.parse(datasource_content)
 
         if datasource_parsed is None:
             raise RuntimeError(f"Unknown datasource extension {ext}")

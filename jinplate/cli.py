@@ -11,7 +11,8 @@ from jinplate.plugins.loader import DataLoader
 @click.command("jinplate")
 @click.argument("template_file", type=click.Path(exists=True, dir_okay=False))
 @click.argument("datasource", type=str)
-def jinplate_cli(template_file, datasource):
+@click.option("--file-type", type=str, default=None)
+def jinplate_cli(template_file, datasource, file_type):
     """
     A command line renderer for jinja templates
 
@@ -25,7 +26,7 @@ def jinplate_cli(template_file, datasource):
     template = jenv.get_template(template_file)
 
     dataloader = DataLoader()
-    data = dataloader.load(datasource)
+    data = dataloader.load(datasource, file_type=file_type)
 
     print(template.render(data))
 
