@@ -12,7 +12,8 @@ from jinplate.plugins.loader import DataLoader
 @click.argument("template_file", type=click.Path(exists=True, dir_okay=False))
 @click.argument("datasource", type=str)
 @click.option("--file-type", type=str, default=None)
-def jinplate_cli(template_file, datasource, file_type):
+@click.option("--jinja-ext", type=str, default=None)
+def jinplate_cli(template_file, datasource, file_type, jinja_ext):
     """
     A command line renderer for jinja templates
 
@@ -20,9 +21,16 @@ def jinplate_cli(template_file, datasource, file_type):
 
     DATASOURCE is the URI of a datasource supported by jinplate that contains the
     template variables
+
+    --file-type allows specifying an override for the extension of DATASOURCE
+    --jinja-ext allows specifying a comma-separated list of import paths containing
+    jinja extensions. Example: --jinja-ext jinja2.ext.i18n
     """
     template_path = pathlib.Path(template_file).resolve()
-    jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path.parent))
+    jenv = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(template_path.parent),
+        extensions=jinja_ext.split(",") if jinja_ext is not None else [],
+    )
     template = jenv.get_template(template_path.name)
 
     dataloader = DataLoader()
