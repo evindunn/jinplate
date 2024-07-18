@@ -92,9 +92,11 @@ arr: [1, 2, 3]
 
 
 # Supported Vars File Types
+File types are determined by extension, but can also be overridden by appending
+`+<file_type>` to the datasource URI scheme, as in `http+json://`
 
-| File type | Plugin                             | Example                                                          |
-|-----------|------------------------------------|------------------------------------------------------------------|
-| json      | `jinplate.plugins.filetype.json`   | `http+json://127.0.0.1:8000/vars`                                |
-| yaml      | `jinplate.plugins.filetype.yaml`   | `http://127.0.0.1:8000/vars.yml`<br>`file:////path/to/vars.yaml` |
-| dotenv    | `jinplate.plugins.filetype.dotenv` | `file+env:////path/to/vars`                                      |
+| File type | Matching extensions | Plugin                             | Example                                                          |
+|-----------|---------------------|------------------------------------|------------------------------------------------------------------|
+| json      | `.json`             | `jinplate.plugins.filetype.json`   | `http+json://127.0.0.1:8000/vars`                                |
+| yaml      | `.yaml`, `.yml`     | `jinplate.plugins.filetype.yaml`   | `http://127.0.0.1:8000/vars.yml`<br>`file:////path/to/vars.yaml` |
+| dotenv    | `.env`              | `jinplate.plugins.filetype.dotenv` | `file+env:////path/to/vars`                                      |
