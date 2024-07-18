@@ -38,17 +38,22 @@ class DataLoader:
         """
 
         uri_parsed = urllib.parse.urlparse(uri)
-        _, ext = os.path.splitext(uri_parsed.path)
-        ext = ext.lstrip(".")
+
+        if "+" in uri_parsed.scheme:
+            scheme, ext = uri_parsed.scheme.split("+", 1)
+        else:
+            scheme = uri_parsed.scheme
+            _, ext = os.path.splitext(uri_parsed.path)
+            ext = ext.lstrip(".")
 
         datasource_content = None
         for plugin in self.scheme_plugins:
-            if plugin.scheme_matches(uri_parsed.scheme):
+            if plugin.scheme_matches(scheme):
                 datasource_content = plugin.read(uri)
                 break
 
         if datasource_content is None:
-            raise RuntimeError(f"Unknown datasource scheme {uri_parsed.scheme}")
+            raise RuntimeError(f"Unknown datasource scheme {scheme}")
 
         datasource_parsed = None
 

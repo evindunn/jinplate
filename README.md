@@ -20,21 +20,19 @@ pip install jinplate
 
 ```
 jinplate --help
-Usage: jinplate [OPTIONS] TEMPLATE_FILE DATASOURCE
+Usage: jinplate [OPTIONS] TEMPLATE_FILE DATASOURCES...
 
   A command line renderer for jinja templates
 
   TEMPLATE_FILE is the path to a jinja template file to render
 
-  DATASOURCE is the URI of a datasource supported by jinplate that contains
-  the template variables
+  DATASOURCES is a list of URIs to data sources supported by jinplate which
+  contain the template variables
 
-  --file-type allows specifying an override for the extension of DATASOURCE
   --jinja-ext allows specifying a comma-separated list of import paths
   containing jinja extensions. Example: --jinja-ext jinja2.ext.i18n
 
 Options:
-  --file-type TEXT
   --jinja-ext TEXT
   --help            Show this message and exit.
 ```
@@ -87,16 +85,16 @@ arr: [1, 2, 3]
 
 
 # Supported Vars File Schemes
-| URI Scheme | Plugin                         | Example                           |
-|------------|--------------------------------|-----------------------------------|
-| file       | `jinplate.plugins.scheme.file` | `file:////path/to/vars.yaml`      |
-| http       | `jinplate.plugins.scheme.http` | `http://127.0.0.1:8000/vars.json` |
+| URI Scheme | Plugin                         | Example                             |
+|------------|--------------------------------|-------------------------------------|
+| file       | `jinplate.plugins.scheme.file` | `file:////path/to/vars.yaml`        |
+| http       | `jinplate.plugins.scheme.http` | `http://127.0.0.1:8000/vars`        |
 
 
 # Supported Vars File Types
 
 | File type | Plugin                             | Example                                                          |
 |-----------|------------------------------------|------------------------------------------------------------------|
-| json      | `jinplate.plugins.filetype.json`   | `http://127.0.0.1:8000/vars.json`                                |
+| json      | `jinplate.plugins.filetype.json`   | `http+json://127.0.0.1:8000/vars`                                |
 | yaml      | `jinplate.plugins.filetype.yaml`   | `http://127.0.0.1:8000/vars.yml`<br>`file:////path/to/vars.yaml` |
-| dotenv    | `jinplate.plugins.filetype.dotenv` | `file:////path/to/vars.env`                                      |
+| dotenv    | `jinplate.plugins.filetype.dotenv` | `file+env:////path/to/vars`                                      |
