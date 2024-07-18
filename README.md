@@ -20,7 +20,6 @@ pip install jinplate
 
 ```
 jinplate --help
-
 Usage: jinplate [OPTIONS] TEMPLATE_FILE DATASOURCE
 
   A command line renderer for jinja templates
@@ -30,8 +29,14 @@ Usage: jinplate [OPTIONS] TEMPLATE_FILE DATASOURCE
   DATASOURCE is the URI of a datasource supported by jinplate that contains
   the template variables
 
+  --file-type allows specifying an override for the extension of DATASOURCE
+  --jinja-ext allows specifying a comma-separated list of import paths
+  containing jinja extensions. Example: --jinja-ext jinja2.ext.i18n
+
 Options:
-  --help  Show this message and exit.
+  --file-type TEXT
+  --jinja-ext TEXT
+  --help            Show this message and exit.
 ```
 
 # Local Vars Example
