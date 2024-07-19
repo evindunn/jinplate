@@ -13,7 +13,7 @@ dynamic = ["version", "readme", "dependencies"]
 jinplate = "jinplate.cli:jinplate_cli"
 
 [project.optional-dependencies]
-ansible = ["ansible>=2.9"]
+ansible = ["ansible-core>=2.9"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = "requirements.txt"}

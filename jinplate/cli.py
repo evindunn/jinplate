@@ -52,13 +52,16 @@ def jinplate_cli(template_file, datasources, jinja_ext):
     --jinja-ext allows specifying a comma-separated list of import paths containing
     jinja extensions. Example: --jinja-ext jinja2.ext.i18n
     """
-    dataloader = DataLoader()
-    data = {}
-    for source in datasources:
-        data = {**data, **dataloader.load(source)}
+    try:
+        dataloader = DataLoader()
+        data = {}
+        for source in datasources:
+            data = {**data, **dataloader.load(source)}
 
-    extensions = jinja_ext.split(",") if jinja_ext is not None else []
-    print(_render_template(template_file, extensions, **data))
+        extensions = jinja_ext.split(",") if jinja_ext is not None else []
+        print(_render_template(template_file, extensions, **data))
+    except Exception as e:
+        raise click.ClickException(str(e)) from e
 
 
 # pylint: disable=no-value-for-parameter
