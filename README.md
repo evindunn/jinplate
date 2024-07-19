@@ -16,6 +16,12 @@ jinplate uses URIs to identify how to fetch and parse Jinja2 variable files.
 pip install jinplate
 ```
 
+To install with support for the tests and filters included with ansible, use
+
+```
+pip install jinplate[ansible]
+```
+
 # Usage
 
 ```
