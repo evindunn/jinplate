@@ -36,10 +36,16 @@ def _render_template(template_file, extensions, **kwargs):
 
 
 @click.command("jinplate")
-@click.option("--jinja-ext", type=str, default=None)
+@click.option("--jinja-ext",
+              type=str,
+              default=None, help="A comma-separated list of jinja extensions to load")
+@click.option("-e",
+              type=str,
+              default=None,
+              multiple=True, help="Individual template vars in the format key=value")
 @click.argument("template_file", type=click.Path(exists=True, dir_okay=False))
 @click.argument("datasources", type=str, nargs=-1, required=True)
-def jinplate_cli(template_file, datasources, jinja_ext):
+def jinplate_cli(template_file, datasources, e, jinja_ext):
     """
     A command line renderer for jinja2 templates. If ansible is available, jinplate
     uses its template engine. If not, uses plain jinja2.
@@ -48,6 +54,9 @@ def jinplate_cli(template_file, datasources, jinja_ext):
 
     DATASOURCES is a list of URIs to data sources supported by jinplate which contain
     the template variables
+
+    -e allows specifying individual vars in the format key=value.
+    Example: -e test1=1 -e test2=2
 
     --jinja-ext allows specifying a comma-separated list of import paths containing
     jinja extensions. Example: --jinja-ext jinja2.ext.i18n
@@ -58,10 +67,16 @@ def jinplate_cli(template_file, datasources, jinja_ext):
         for source in datasources:
             data = {**data, **dataloader.load(source)}
 
+        for kvpair in e:
+            if "=" not in kvpair:
+                continue
+            k, v = kvpair.split("=", 1)
+            data[k] = v
+
         extensions = jinja_ext.split(",") if jinja_ext is not None else []
         print(_render_template(template_file, extensions, **data))
-    except Exception as e:
-        raise click.ClickException(str(e)) from e
+    except Exception as exp:
+        raise click.ClickException(str(exp)) from exp
 
 
 # pylint: disable=no-value-for-parameter

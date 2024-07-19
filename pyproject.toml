@@ -7,7 +7,24 @@ name = "jinplate"
 description = "CLI renderer for Jinja2"
 authors = [{name = "Evin Dunn"}]
 requires-python = ">=3.10"
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Framework :: Ansible",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+    "Topic :: Text Processing",
+]
+license = {file = "LICENSE.txt"}
 dynamic = ["version", "readme", "dependencies"]
+
+
+[project.urls]
+homepage = "https://github.com/evindunn/jinplate"
 
 [project.scripts]
 jinplate = "jinplate.cli:jinplate_cli"
