@@ -28,19 +28,23 @@ pip install jinplate[ansible]
 jinplate --help
 Usage: jinplate [OPTIONS] TEMPLATE_FILE DATASOURCES...
 
-  A command line renderer for jinja templates
+  A command line renderer for jinja2 templates. If ansible is available,
+  jinplate uses its template engine. If not, uses plain jinja2.
 
   TEMPLATE_FILE is the path to a jinja template file to render
 
   DATASOURCES is a list of URIs to data sources supported by jinplate which
-  contain the template variables. Data sources are parsed and merged into a single
-  dict in the order in which they are specified.
+  contain the template variables
+
+  -e allows specifying individual vars in the format key=value. Example: -e
+  test1=1 -e test2=2
 
   --jinja-ext allows specifying a comma-separated list of import paths
   containing jinja extensions. Example: --jinja-ext jinja2.ext.i18n
 
 Options:
-  --jinja-ext TEXT
+  --jinja-ext TEXT  A comma-separated list of jinja extensions to load
+  -e TEXT           Individual template vars in the format key=value
   --help            Show this message and exit.
 ```
 
