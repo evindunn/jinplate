@@ -33,7 +33,8 @@ Usage: jinplate [OPTIONS] TEMPLATE_FILE DATASOURCES...
   TEMPLATE_FILE is the path to a jinja template file to render
 
   DATASOURCES is a list of URIs to data sources supported by jinplate which
-  contain the template variables
+  contain the template variables. Data sources are parsed and merged into a single
+  dict in the order in which they are specified.
 
   --jinja-ext allows specifying a comma-separated list of import paths
   containing jinja extensions. Example: --jinja-ext jinja2.ext.i18n
